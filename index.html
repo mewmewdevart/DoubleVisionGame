@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="MewmewDevArt">
+	<!-- Additional metadata for accessibility and SEO -->
+	<meta name="description" content="Minigames of Mewmew">
+	<meta name="keywords" content="Kinect, web, HTML, CSS, JavaScript, minigame">
+	<meta name="robots" content="index, follow">
+
+	<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	<title>DoubleVision Game</title>
+
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<audio id="backgroundAudio" src="./sounds/puzzles.ogg"></audio>
+
+	<!-- 00 - gameStartScreen -->
+	<div id="gameStartScreen">
+		<div id="rotateScreen">
+			<div class="rotateInformation">
+				<img src="./images/cellphone.svg" alt="">
+				<h3>Please turn your device to landscape mode</h3>
+			</div>
+		</div>
+	
+		<div class="eyeContainer">
+			<div class="eye">
+				<div class="eyePupil upperPupil"></div>
+				<div class="eyeIris"></div>
+				<div class="eyePupil lowerPupil"></div>
+			</div>
+			<div class="eye">
+				<div class="eyePupil upperPupil"></div>
+				<div class="eyeIris"></div>
+				<div class="eyePupil lowerPupil"></div>
+			</div>
+			<div class="smile smile--yay">
+				<div class="smile_face">
+				  <div class="smile_eyebrows"></div>
+				  <div class="smile_mouth"></div>
+				</div>
+			</div>
+		</div>
+		<h2>Tap any part of the screen to begin</h2>
+
+		<div class="gameBox startBox" id="imageDisplay"></div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
+

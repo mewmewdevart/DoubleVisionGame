@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Days+One&display=swap');
+
+/* ======= CSS RESET  ======= */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+}
+li {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
+a, button {
+	cursor: pointer;
+}
+button {
+	border: none;
+	padding: 0;
+}
+input, textarea, select, button {
+	outline: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* ======= IMPORTS  ======= */
+
+
+/* ======= SETTINGS  ======= */
+:root {
+	--regularFont: 'Days One', sans-serif;
+
+	--bgColor: #548CFF;
+	--darkBgColor:#3260bd;
+	--softColor: #EC939D;
+	--colorWhite: #fff;
+	--colorYellow: #F4BF96;
+	--darkColor: #191825;
+	--regularFontSize: 40px;
+}
+
+body {
+	background-color: var(--bgColor);
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#rotateScreen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	min-width: 100vw;
+	width: 100%;
+	min-height: 100vh;
+	height: 100%;
+	background-color: var(--darkColor);
+	display: none;
+	justify-content: center;
+	align-items: center;
+	z-index: 99;
+}
+
+.rotateInformation {
+	background-color: transparent;
+	width: 100%;
+	text-align: center;
+}
+
+#rotateScreen img {
+	width: 10%;
+	margin: 0 auto;
+}
+
+#rotateScreen h3 {
+	margin-top: 3%;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: calc(var(--regularFontSize) - 10px);
+	color: var(--colorWhite);
+}
+
+/* gameStartScreen - Screen 01 */
+#gameStartScreen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+/* Heading style */
+#gameStartScreen h2 {
+	position: absolute;
+	bottom: 5%;
+	color: var(--colorWhite);
+	font-size: 20px;
+	font-family: var(--regularFont);
+	opacity: 1;
+	animation: opacityText 3s ease-in-out infinite;
+}
+
+/* Keyframes for text movement */
+@keyframes opacityText {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Eye container style */
+#gameStartScreen .eyeContainer {
+	background-color: transparent;
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Eye styles */
+#gameStartScreen .eye {
+	width: 400px;
+	height:   400px;
+	background-color: var(--colorWhite);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	margin: 0 2rem;
+	-webkit-clip-path: circle(50% at center);
+			clip-path: circle(50% at center);
+	position: relative;
+}
+
+/* Eye iris animation */
+#gameStartScreen .eyeIris {
+	width: 50%;
+	height: 50%;
+	background-color: var(--darkColor);
+	border-radius: 50%;
+	animation: movement 6s ease-in-out infinite;
+}
+
+/* Eye pupil animation */
+#gameStartScreen .eyePupil {
+	width: 100%;
+	height: 250px;
+	background: var(--colorYellow);
+	position: absolute;
+	animation: blink 6s ease-in-out infinite;
+	z-index: 1;
+}
+
+/* Pupil position styles */
+#gameStartScreen .upperPupil {
+	top: 0;
+}
+
+#gameStartScreen .lowerPupil {
+	bottom: 0;
+}
+
+/* Keyframes for eye movement */
+@keyframes movement {
+	0%, 10%, 30%, 80%, 100% {
+		transform: translateX(0);
+	}
+	20% {
+		transform: translateX(-80%);
+	}
+	90% {
+		transform: translateX(80%);
+	}
+}
+
+/* Keyframes for eye blinking */
+@keyframes blink {
+	0%, 30%, 34%, 38%, 50%, 80%, 100% {
+		height: 20%;
+	}
+	32%, 36% {
+		height: 40%;
+	}
+	60%, 70% {
+		height: 45%;
+	}
+}
+
+/* Game box styles */
+.gameBox {
+	width: 100px;
+	height: 100px;
+	margin: 50px auto;
+	background: var(--colorWhite);
+	padding: 20px;
+	text-align: center;
+	position: absolute;
+	left: 20%;
+	top: 65%;
+}
+
+/* Triangle before the game box */
+.startBox:before {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	border-left: 10px solid var(--colorWhite);
+	border-right: 10px solid transparent;
+	border-top: 10px solid var(--colorWhite);
+	border-bottom: 10px solid transparent;
+	right: -19px;
+	top: 6px;
+}
+
+.smile {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+	left: 45%;
+}
+
+.smile_mouth,
+.smile_tongue {
+	position: absolute;
+}
+
+.smile_mouth:before,
+.smile_mouth:after {
+	position: absolute;
+	content: "";
+}
+
+.smile--yay .smile_face {
+	-webkit-animation: yay 3s linear infinite alternate;
+			animation: yay 3s linear infinite alternate;
+}
+
+.smile--yay .smile_mouth {
+	position: absolute;
+	background: transparent;
+}
+
+.smile--yay .smile_mouth:after {
+	width: 180px;
+	height: 180px;;
+	left: calc(	-50% - 40px);
+	top: -75px;
+	border-radius: 50%;
+	background: transparent;
+	border: 16px solid var(--darkColor);
+	box-sizing: border-box;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	z-index: 1;
+}
+
+@-webkit-keyframes yay {
+	25% {
+	transform: rotate(-15deg);
+	}
+	75% {
+	transform: rotate(15deg);
+	}
+}
+@keyframes yay {
+	25% {
+	transform: rotate(-15deg);
+	}
+	75% {
+	transform: rotate(15deg);
+	}
+}
+
+/* Responsive styles for smaller screens */
+@media only screen and (min-width: 569px) and (max-width: 1024px) {
+	#gameStartScreen .eye {
+		width: 200px;
+		height: 200px;
+	}
+
+	.smile {
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		bottom: -30%;
+		left: 45%;
+	}
+
+	.smile--yay .smile_mouth:after {
+		width: 150px;
+		height: 150px;
+	}
+
+	.gameBox {
+		width: 75px;
+		height:75px;
+		padding: 15px;
+		left: 15%;
+		top: 55%;
+	}
+}
+
+@media only screen and (max-width: 568px) {
+	#gameStartScreen .eye {
+			width: 180px;
+			height: 180px;
+		}
+
+	.gameBox {
+			width: 50px;
+			height: 50px;
+			padding: 15px;
+			left: 15%;
+			top: 55%;
+		}
+
+	.smile {
+			width: 75px;
+			height: 75px;
+			top: 90%;
+			left: 50%;
+		}
+	.smile--yay .smile_mouth:after {
+		width: 75px;
+		height: 75px;
+	}
+}
+
+@media only screen and (max-width: 420px) {
+	#rotateScreen {
+		display: flex;
+	}
+
+	#rotateScreen img {
+		width: 25%;
+		margin: 0 auto;
+	}
+}
