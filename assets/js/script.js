@@ -1,9 +1,9 @@
 const imageSources = [
-	'./images/icon_00.png',
-	'./images/icon_01.png',
-	'./images/icon_02.png',
-	'./images/icon_03.png',
-	'./images/icon_04.png',
+	'./assets/images/icon_00.png',
+	'./assets/images/icon_01.png',
+	'./assets/images/icon_02.png',
+	'./assets/images/icon_03.png',
+	'./assets/images/icon_04.png',
   ];
 
 // Change the image/icon source on the start screen
