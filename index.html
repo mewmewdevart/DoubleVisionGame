@@ -15,13 +15,32 @@
 	<link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-	<audio id="backgroundAudio" src="./assets/sounds/puzzles.ogg"></audio>
+	<!-- Canvas for drawing -->
+	<canvas id="drawingCanvas" class="drawingCanvas" width="640" height="480"></canvas>
+
+    <!-- Sound Effects -->
+    <!-- Lose Game sound effect -->
+    <audio id="lose_fx" muted preload="auto">
+        <source src="{resources:files/lose_game.wav}" type="audio/mpeg">
+    </audio>
+    <!-- Win Game sound effect -->
+    <audio id="win_fx" muted preload="auto">
+        <source src="{resources:files/win_game.wav}" type="audio/mpeg">
+    </audio>
+    <!-- Wrong answer sound effect -->
+    <audio id="wrong_fx" muted preload="auto">
+        <source src="{resources:files/wrong.wav}" type="audio/mpeg">
+    </audio>
+    <!-- Correct answer sound effect -->
+    <audio id="correct_fx" muted preload="auto">
+        <source src="{resources:files/correct.wav}" type="audio/mpeg">
+    </audio>
 
 	<!-- 00 - gameStartScreen -->
 	<div id="gameStartScreen">
 		<div id="rotateScreen">
 			<div class="rotateInformation">
-				<img src="./assets/images/cellphone.svg" alt="">
+				<img src="{resources:images/cellphon.png}" alt="Cellphone icon">
 				<h3>Please turn your device to landscape mode</h3>
 			</div>
 		</div>
@@ -42,11 +61,77 @@
 				  <div class="smile_eyebrows"></div>
 				  <div class="smile_mouth"></div>
 				</div>
-			</div>
+			  </div>
 		</div>
 		<h2>Tap any part of the screen to begin</h2>
 
 		<div class="gameBox startBox" id="imageDisplay"></div>
+	</div>
+
+	<!-- 01 - gamePlayScreen -->
+	<div id="gameplay">
+		<!-- 01.1 - Interface-->
+		<div class="gameUI">
+			<div id="gameTimer">30s</div>
+			<div id="gameScore">00</div>
+			<div id="clear"></div>
+		</div>
+		<div class="eyesContainer">
+			<div class="eyeSection eyeSection_00">
+				<div class="eyeLocal00">
+					<div class="gameMode easyMode">
+						<div class="block block_1"></div>
+						<div class="block block_2"></div>
+						<div class="block block_3"></div>
+					</div>
+				</div>
+			</div>
+			<div class="eyeSection eyeSection_01">
+				<div class="eyeLocal01" id="local01">
+					<div class="gameMode easyMode">
+						<div class="block block_1"></div>
+						<div class="block block_2"></div>
+						<div class="block block_3"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="smile smile--yay">
+			<div class="smile_face">
+			  <div class="smile_eyebrows"></div>
+			  <div class="smile_mouth"></div>
+			</div>
+		  </div>
+	</div>
+	
+	<!-- 02 - feedbackScreen -->
+	<div id="feedbackScreen">
+		<!-- 02.1 - levelSelection -->
+		<div class="levelSelectionScreen">
+			<div class="levelSelection">
+				<h1>Select a Difficulty Level</h1>
+				<button onclick="selectGameLevel('easy')" class="levelSelectButton easyLevel"> Easy
+					<img src="{resources:images/icon_00.png}" alt="Easy icon">
+				</button>
+				<button onclick="selectGameLevel('medium')" class="levelSelectButton mediumLevel"> Medium
+					<img src="{resources:images/icon_00.png}" alt="Medium icon">
+				</button>
+			</div>
+		</div>
+
+		<!-- 02.2 - tutorialScreen -->
+		<div class="tutorialScreen">
+			<h1>Click on the repeating images!</h1>
+		</div>
+		<!-- 02.3 - victoryScreen -->
+		<div class="victoryScreen">
+			<h1 id="congratulationsMessage">Congratulations! You are a <strong>Perfectionist</strong></h1>
+			<div id="victoryScore">00</div>
+		</div>
+		<!-- 02.4 - loseScreen -->
+		<div class="loseScreen">
+			<h1>Oh no, you lost! Try again!</h1>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>

@@ -95,9 +95,9 @@ body {
 	color: var(--colorWhite);
 }
 
-/* gameStartScreen - Screen 01 */
+/* =========== gameStartScreen - Screen 00 =========== */
 #gameStartScreen {
-	display: flex;
+	display: flex; /* flex */
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
@@ -239,7 +239,7 @@ body {
 	top: 6px;
 }
 
-.smile {
+#gameStartScreen .smile {
 	width: 100px;
 	height: 100px;
 	position: absolute;
@@ -247,28 +247,28 @@ body {
 	left: 45%;
 }
 
-.smile_mouth,
-.smile_tongue {
+#gameStartScreen .smile_mouth,
+#gameStartScreen .smile_tongue {
 	position: absolute;
 }
 
-.smile_mouth:before,
-.smile_mouth:after {
+#gameStartScreen .smile_mouth:before,
+#gameStartScreen .smile_mouth:after {
 	position: absolute;
 	content: "";
 }
 
-.smile--yay .smile_face {
+#gameStartScreen .smile--yay .smile_face {
 	-webkit-animation: yay 3s linear infinite alternate;
 			animation: yay 3s linear infinite alternate;
 }
 
-.smile--yay .smile_mouth {
+#gameStartScreen .smile--yay .smile_mouth {
 	position: absolute;
 	background: transparent;
 }
 
-.smile--yay .smile_mouth:after {
+#gameStartScreen .smile--yay .smile_mouth:after {
 	width: 180px;
 	height: 180px;;
 	left: calc(	-50% - 40px);
@@ -297,6 +297,296 @@ body {
 	}
 	75% {
 	transform: rotate(15deg);
+	}
+}
+
+/* =========== gameplay - Screen 01 =========== */
+#gameplay {
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+#gameplay .gameUI {
+	width: 85%;
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 5%;
+}
+
+#gameplay .gameUI #gameTimer,
+#gameplay .gameUI #gameScore, #gameplay .gameUI #clean {
+	width: 150px;
+	height: 50px;
+	z-index: 3;
+	font-size: 7.5vh;
+	font-weight: bold;
+	text-align: center;
+	color: var(--colorWhite);
+	font-family: var(--regularFont);
+}
+
+/* Eye container style */
+#gameplay .eyeContainer {
+	background-color: transparent;
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/* Eye styles */
+#gameplay .eye {
+	width: 400px;
+	height:   400px;
+	background-color: var(--colorWhite);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	margin: 0 2rem;
+	-webkit-clip-path: circle(50% at center);
+			clip-path: circle(50% at center);
+	position: relative;
+}
+
+/* Eye iris animation */
+#gameplay .eyeIris {
+	width: 75%;
+	height: 75%;
+	background-color: var(--darkColor);
+	border-radius: 50%;
+}
+
+#gameplay .block_1, .block_2 , .block_3 , .block_4 , .block_5, .block_6{
+	cursor: pointer;
+}
+
+#gameplay .block:hover {
+	transform: scale(1.2);
+}
+
+/* gameplay Screen 02 */
+#gameplay {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+#gameplay .eyesContainer {
+	width: 85%;
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#gameplay .eyeSection_00,
+#gameplay .eyeSection_01 {
+	width: 500px;
+	height: 500px;
+	background-color: var(--colorWhite);
+	border-radius: 50%;
+	border: 5px solid var(--darkColor);
+	position: relative; 
+}
+
+#gameplay .eyeSection_00:after,
+#gameplay .eyeSection_01:after {
+	content: "";
+	position: absolute;
+	width: 70%;
+	height: 70%;
+	border-radius: 50%;
+	background-color: var(--darkColor);
+	top: 15%;
+	left: 15%;
+	z-index: 2;
+}
+
+#gameplay .eyeLocal00, .eyeLocal01 {
+	position: absolute;
+	z-index: 3;
+	width: 300px;
+	height: 300px;
+	border-radius: 50%;
+	top: 20%;
+	left: 20%;
+}
+
+#gameplay .smile {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 20%;
+	left: 45%;
+}
+
+#gameplay .smile_mouth,
+#gameplay .smile_tongue {
+	position: absolute;
+}
+
+#gameplay .smile_mouth:before,
+#gameplay .smile_mouth:after {
+	position: absolute;
+	content: "";
+}
+
+
+#gameplay .smile--yay .smile_mouth {
+	position: absolute;
+	background: transparent;
+}
+
+#gameplay .smile--yay .smile_mouth:after {
+	width: 180px;
+	height: 180px;;
+	left: calc(	-50% - 40px);
+	top: -75px;
+	border-radius: 50%;
+	background: transparent;
+	border: 16px solid var(--darkColor);
+	box-sizing: border-box;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	z-index: 1;
+}
+
+/* =========== UI - Screen 02 =========== */
+.gameUI {
+	width: 100%;
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	top: -15%;
+}
+
+.gameUI #gameTimer, .gameUI #clear,
+.gameUI #gameScore  {
+	width: 150px;
+	height: 150px;
+	font-size: 50px;
+	font-weight: bold;
+	z-index: 3;
+	color: var(--colorWhite);
+	font-family: var(--regularFont);
+	text-align: center;
+}
+
+.block {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+}
+
+.block_1, .block_2 , .block_3 , .block_4 , .block_5, .block_6{
+	cursor: pointer;
+}
+
+.block:hover {
+	transform: scale(1.2);
+}
+
+/* =========== Screens =========== */
+.victoryScreen , .loseScreen, .tutorialScreen {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--colorWhite);
+	font-family: var(--regularFont);
+	text-transform: uppercase;
+}
+
+.victoryScreen h1, .loseScreen h1, .tutorialScreen h1{
+	font-weight: bold;
+	font-size: 30px;
+	color: var(--colorWhite);
+	text-align: center;
+}
+
+.victoryScreen #victoryScore {
+	font-size: 30px;
+	color: var(--colorYellow);
+	text-align: center;
+}
+
+/* Screen Choice Level*/
+.levelSelectionScreen {
+	display: none;
+	position: absolute;
+	z-index: 99;
+	width: 100%;
+}
+
+.selectLevelScreen  h1 {
+	position: absolute;
+	text-align: center;
+	top: 15%;
+	font-size: var(--regularFontSize);
+	font-family: var(--regularFont);
+	color: var(--colorWhite);
+}
+
+.selectLevelScreen  .levelSelection {
+	display: flex;
+	width: 80%;
+	height: 100vh;
+	justify-content: center;
+	gap: 100px;
+	align-items: center;
+	margin: 0 auto;
+}
+
+.selectLevelScreen  button {
+	width: 356px;
+	height: 185px;
+	font-size: var(--regularFontSize);
+	font-family: var(--regularFont);
+	color: var(--colorWhite);
+	background-color: var(--softColor);
+	border-radius: 20px;
+	position: relative;
+}
+
+.selectLevelScreen  button img {
+	position: absolute;
+	top: -60px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+  
+.selectLevelScreen  button:hover {
+	width: 366px;
+	height: 195px;
+	background-color: var(--darkBgColor);
+	font-size: calc(var(--regularFontSize) + 10px);
+}
+
+
+/* =========== Media =========== */
+@media only screen and (max-width: 420px) {
+	#rotateScreen {
+		display: flex;
+	}
+
+	#rotateScreen img {
+		width: 25%;
+		margin: 0 auto;
 	}
 }
 
