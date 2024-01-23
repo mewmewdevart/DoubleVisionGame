@@ -30,7 +30,7 @@ const CONGRATULATORY_PHRASES = [
 let randomChosenImage;
 let arrRandomImages;
 let score = 0;
-let timer = 10;
+let timer = 60;
 let timerInterval;
 
 // Initial positions of game blocks
