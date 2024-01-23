@@ -12,130 +12,106 @@
 	<link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico">
 	<title>DoubleVision Game</title>
 
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-	<!-- Canvas for drawing -->
-	<canvas id="drawingCanvas" class="drawingCanvas" width="640" height="480"></canvas>
-
-    <!-- Sound Effects -->
-    <!-- Lose Game sound effect -->
-    <audio id="lose_fx" muted preload="auto">
-        <source src="{resources:files/lose_game.wav}" type="audio/mpeg">
-    </audio>
-    <!-- Win Game sound effect -->
-    <audio id="win_fx" muted preload="auto">
-        <source src="{resources:files/win_game.wav}" type="audio/mpeg">
-    </audio>
-    <!-- Wrong answer sound effect -->
-    <audio id="wrong_fx" muted preload="auto">
-        <source src="{resources:files/wrong.wav}" type="audio/mpeg">
-    </audio>
-    <!-- Correct answer sound effect -->
-    <audio id="correct_fx" muted preload="auto">
-        <source src="{resources:files/correct.wav}" type="audio/mpeg">
-    </audio>
-
-	<!-- 00 - gameStartScreen -->
-	<div id="gameStartScreen">
-		<div id="rotateScreen">
-			<div class="rotateInformation">
-				<img src="{resources:images/cellphon.png}" alt="Cellphone icon">
-				<h3>Please turn your device to landscape mode</h3>
-			</div>
-		</div>
-	
-		<div class="eyeContainer">
-			<div class="eye">
-				<div class="eyePupil upperPupil"></div>
-				<div class="eyeIris"></div>
-				<div class="eyePupil lowerPupil"></div>
-			</div>
-			<div class="eye">
-				<div class="eyePupil upperPupil"></div>
-				<div class="eyeIris"></div>
-				<div class="eyePupil lowerPupil"></div>
-			</div>
-			<div class="smile smile--yay">
-				<div class="smile_face">
-				  <div class="smile_eyebrows"></div>
-				  <div class="smile_mouth"></div>
+	<section class="game-screen">
+		<div class="container-fluid">
+		  <!-- Game Start Screen -->
+		  <div id="game-start-screen">
+			<!-- Eye container and animation -->
+			<div class="eye-container">
+			  <!-- Eye elements -->
+			  <div class="eye">
+				<!-- Pupil and iris animation -->
+				<div class="eye-pupil upper-pupil"></div>
+				<div class="eye-iris"></div>
+				<div class="eye-pupil lower-pupil"></div>
+			  </div>
+			  <div class="eye">
+				<!-- Pupil and iris animation -->
+				<div class="eye-pupil upper-pupil"></div>
+				<div class="eye-iris"></div>
+				<div class="eye-pupil lower-pupil"></div>
+			  </div>
+			  <!-- Smile animation -->
+			  <div class="smile smile--yay">
+				<div class="smile-face">
+				  <div class="smile-eyebrows"></div>
+				  <div class="smile-mouth"></div>
 				</div>
 			  </div>
-		</div>
-		<h2>Tap any part of the screen to begin</h2>
-
-		<div class="gameBox startBox" id="imageDisplay"></div>
-	</div>
-
-	<!-- 01 - gamePlayScreen -->
-	<div id="gameplay">
-		<!-- 01.1 - Interface-->
-		<div class="gameUI">
-			<div id="gameTimer">30s</div>
-			<div id="gameScore">00</div>
-			<div id="clear"></div>
-		</div>
-		<div class="eyesContainer">
-			<div class="eyeSection eyeSection_00">
+			</div>
+			<!-- Heading and game box -->
+			<h1>Tap any part of the screen to begin</h1>
+			<div class="game-box start-box" id="imageDisplay"></div>
+		  </div>
+	
+		  <!-- Gameplay Screen -->
+		  <div id="gameplay-screen">
+			<!-- Game UI -->
+			<div class="gameUI">
+				<div class="timer-design">
+					<img src="./assets/images/ui_clock.png" alt="" srcset="">
+					<div id="gameTimer">30</div>
+				</div>
+				<div class="score-design">
+					<img src="./assets/images/ui_coint.png" alt="" srcset="">
+					<div id="gameScore">00</div>
+				</div>
+			  <div class="gambiarra">0000</div>
+			</div>
+			
+			<!-- Eye container and blocks -->
+			<div class="eye-container">
+			  <div class="eye">
 				<div class="eyeLocal00">
-					<div class="gameMode easyMode">
-						<div class="block block_1"></div>
-						<div class="block block_2"></div>
-						<div class="block block_3"></div>
-					</div>
+				  <div class="block block_1"></div>
+				  <div class="block block_2"></div>
+				  <div class="block block_3"></div>
 				</div>
-			</div>
-			<div class="eyeSection eyeSection_01">
-				<div class="eyeLocal01" id="local01">
-					<div class="gameMode easyMode">
-						<div class="block block_1"></div>
-						<div class="block block_2"></div>
-						<div class="block block_3"></div>
-					</div>
+			  </div>
+			  <div class="eye">
+				<div class="eyeLocal01">
+				  <div class="block block_1"></div>
+				  <div class="block block_2"></div>
+				  <div class="block block_3"></div>
 				</div>
-			</div>
-		</div>
-		<div class="smile smile--yay">
-			<div class="smile_face">
-			  <div class="smile_eyebrows"></div>
-			  <div class="smile_mouth"></div>
+			  </div>
+			  <!-- Smile animation -->
+			  <div class="smile smile--yay">
+				<div class="smile-face">
+				  <div class="smile-eyebrows"></div>
+				  <div class="smile-mouth"></div>
+				</div>
+			  </div>
 			</div>
 		  </div>
-	</div>
 	
-	<!-- 02 - feedbackScreen -->
-	<div id="feedbackScreen">
-		<!-- 02.1 - levelSelection -->
-		<div class="levelSelectionScreen">
-			<div class="levelSelection">
-				<h1>Select a Difficulty Level</h1>
-				<button onclick="selectGameLevel('easy')" class="levelSelectButton easyLevel"> Easy
-					<img src="{resources:images/icon_00.png}" alt="Easy icon">
-				</button>
-				<button onclick="selectGameLevel('medium')" class="levelSelectButton mediumLevel"> Medium
-					<img src="{resources:images/icon_00.png}" alt="Medium icon">
-				</button>
+		  <!-- Feedback Screens -->
+		  <div class="feedback-screen">
+			<!-- Tutorial Screen -->
+			<div id="tutorial-screen">
+			  <h2>Click on the repeating images!</h2>
 			</div>
+			<!-- Victory Screen -->
+			<div id="victory-screen">
+			  <h1 id="congratulationsMessage">Congratulations! You are a <strong>Perfectionist</strong></h1>
+			  <div id="victoryScore">00</div>
+			</div>
+			<!-- Lose Screen -->
+			<div id="lose-screen">
+			  <h1>Oh no, you lost! Try again!</h1>
+			</div>
+		  </div>
 		</div>
+	  </section>
 
-		<!-- 02.2 - tutorialScreen -->
-		<div class="tutorialScreen">
-			<h1>Click on the repeating images!</h1>
-		</div>
-		<!-- 02.3 - victoryScreen -->
-		<div class="victoryScreen">
-			<h1 id="congratulationsMessage">Congratulations! You are a <strong>Perfectionist</strong></h1>
-			<div id="victoryScore">00</div>
-		</div>
-		<!-- 02.4 - loseScreen -->
-		<div class="loseScreen">
-			<h1>Oh no, you lost! Try again!</h1>
-		</div>
-	</div>
-
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-	<script src="./assets/js/script.js"></script>
+	<script src="./assets/js/code.js"></script>
 </body>
 </html>
-

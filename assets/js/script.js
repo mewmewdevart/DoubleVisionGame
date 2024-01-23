@@ -6,12 +6,13 @@ const imageSources = [
 	'./assets/images/icon_04.png',
   ];
 
-
   const startScreen = document.getElementById('gameStartScreen');
   const gameScreen = document.getElementById('gameplay');
+
   const victoryPhrase = document.getElementById('congratulationsMessage');
   const winScoreElement = document.getElementById('victoryScore');
   const scoreElement = document.getElementById('gameScore');
+  
   const tutorialScreenElement = document.querySelector('.tutorialScreen');
   const victoryScreenElement = document.querySelector('.victoryScreen');
   const loseScreenElement = document.querySelector('.loseScreen');

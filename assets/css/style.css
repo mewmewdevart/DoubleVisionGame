@@ -2,52 +2,17 @@
 
 /* ======= CSS RESET  ======= */
 * {
-	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 }
-ul {
-	list-style: none;
-}
-li {
-	margin: 0;
-	padding: 0;
-}
-a {
-	text-decoration: none;
-}
-a, button {
-	cursor: pointer;
-}
-button {
-	border: none;
-	padding: 0;
-}
-input, textarea, select, button {
-	outline: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-}
-
-/* ======= IMPORTS  ======= */
-
 
 /* ======= SETTINGS  ======= */
 :root {
 	--regularFont: 'Days One', sans-serif;
-
 	--bgColor: #548CFF;
-	--darkBgColor:#3260bd;
+	--darkBgColor: #3260bd;
 	--softColor: #EC939D;
-	--colorWhite: #fff;
+	--colorWhite: #ffffff;
 	--colorYellow: #F4BF96;
 	--darkColor: #191825;
 	--regularFontSize: 40px;
@@ -55,57 +20,24 @@ img {
 
 body {
 	background-color: var(--bgColor);
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
 	overflow: hidden;
 }
 
-#rotateScreen {
-	position: absolute;
-	top: 0;
-	left: 0;
-	min-width: 100vw;
-	width: 100%;
-	min-height: 100vh;
-	height: 100%;
-	background-color: var(--darkColor);
-	display: none;
-	justify-content: center;
-	align-items: center;
-	z-index: 99;
-}
-
-.rotateInformation {
-	background-color: transparent;
-	width: 100%;
-	text-align: center;
-}
-
-#rotateScreen img {
-	width: 10%;
-	margin: 0 auto;
-}
-
-#rotateScreen h3 {
-	margin-top: 3%;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: calc(var(--regularFontSize) - 10px);
-	color: var(--colorWhite);
+.container-fluid {
+	padding: 0;
+	margin: 0;
 }
 
 /* =========== gameStartScreen - Screen 00 =========== */
-#gameStartScreen {
-	display: flex; /* flex */
+#game-start-screen {
+	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	height: 100vh;
+	background-color: purple;
 }
 
 /* Heading style */
-#gameStartScreen h2 {
+#game-start-screen h1 {
 	position: absolute;
 	bottom: 5%;
 	color: var(--colorWhite);
@@ -129,7 +61,7 @@ body {
 }
 
 /* Eye container style */
-#gameStartScreen .eyeContainer {
+#game-start-screen .eye-container {
 	background-color: transparent;
 	display: flex;
 	position: absolute;
@@ -139,27 +71,20 @@ body {
 }
 
 /* Eye styles */
-#gameStartScreen .eye {
+#game-start-screen .eye {
 	width: 400px;
-	height:   400px;
+	height: 400px;
 	background-color: var(--colorWhite);
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-align: center;
-		-ms-flex-align: center;
-			align-items: center;
-	-webkit-box-pack: center;
-		-ms-flex-pack: center;
-			justify-content: center;
+	align-items: center;
+	justify-content: center;
 	margin: 0 2rem;
-	-webkit-clip-path: circle(50% at center);
-			clip-path: circle(50% at center);
+	clip-path: circle(50% at center);
 	position: relative;
 }
 
 /* Eye iris animation */
-#gameStartScreen .eyeIris {
+#game-start-screen .eye-iris {
 	width: 50%;
 	height: 50%;
 	background-color: var(--darkColor);
@@ -168,7 +93,7 @@ body {
 }
 
 /* Eye pupil animation */
-#gameStartScreen .eyePupil {
+#game-start-screen .eye-pupil {
 	width: 100%;
 	height: 250px;
 	background: var(--colorYellow);
@@ -178,11 +103,11 @@ body {
 }
 
 /* Pupil position styles */
-#gameStartScreen .upperPupil {
+#game-start-screen .upper-pupil {
 	top: 0;
 }
 
-#gameStartScreen .lowerPupil {
+#game-start-screen .lower-pupil {
 	bottom: 0;
 }
 
@@ -213,7 +138,7 @@ body {
 }
 
 /* Game box styles */
-.gameBox {
+.game-box {
 	width: 100px;
 	height: 100px;
 	margin: 50px auto;
@@ -225,8 +150,12 @@ body {
 	top: 65%;
 }
 
+.game-box img {
+	width: 90%;
+}
+
 /* Triangle before the game box */
-.startBox:before {
+.start-box:before {
 	content: "";
 	width: 0;
 	height: 0;
@@ -239,7 +168,7 @@ body {
 	top: 6px;
 }
 
-#gameStartScreen .smile {
+#game-start-screen .smile {
 	width: 100px;
 	height: 100px;
 	position: absolute;
@@ -247,31 +176,30 @@ body {
 	left: 45%;
 }
 
-#gameStartScreen .smile_mouth,
-#gameStartScreen .smile_tongue {
+#game-start-screen .smile-mouth,
+#game-start-screen .smile-tongue {
 	position: absolute;
 }
 
-#gameStartScreen .smile_mouth:before,
-#gameStartScreen .smile_mouth:after {
+#game-start-screen .smile-mouth:before,
+#game-start-screen .smile-mouth:after {
 	position: absolute;
 	content: "";
 }
 
-#gameStartScreen .smile--yay .smile_face {
-	-webkit-animation: yay 3s linear infinite alternate;
-			animation: yay 3s linear infinite alternate;
+#game-start-screen .smile--yay .smile-face {
+	animation: yay 3s linear infinite alternate;
 }
 
-#gameStartScreen .smile--yay .smile_mouth {
+#game-start-screen .smile--yay .smile-mouth {
 	position: absolute;
 	background: transparent;
 }
 
-#gameStartScreen .smile--yay .smile_mouth:after {
+#game-start-screen .smile--yay .smile-mouth:after {
 	width: 180px;
-	height: 180px;;
-	left: calc(	-50% - 40px);
+	height: 180px;
+	left: calc(-50% - 40px);
 	top: -75px;
 	border-radius: 50%;
 	background: transparent;
@@ -283,52 +211,65 @@ body {
 	z-index: 1;
 }
 
-@-webkit-keyframes yay {
-	25% {
-	transform: rotate(-15deg);
-	}
-	75% {
-	transform: rotate(15deg);
-	}
-}
 @keyframes yay {
 	25% {
-	transform: rotate(-15deg);
+		transform: rotate(-15deg);
 	}
 	75% {
-	transform: rotate(15deg);
+		transform: rotate(15deg);
 	}
 }
 
-/* =========== gameplay - Screen 01 =========== */
-#gameplay {
+/* =========== gameplay-screen - Screen 01 =========== */
+.gambiarra {
+	opacity: 0;
+}
+
+.gameUI {
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	font-size: var(--regularFontSize);
+	color: var(--colorWhite);
+	vertical-align: baseline;
+	font-weight: 700;
+	margin-top: 2%;
+}
+
+.gameUI .timer-design, .gameUI .score-design{
+	display: flex;
+}
+
+.gameUI .timer-design img, .gameUI .score-design img{
+	width: 10%;
+	height: 10%;
+}
+
+#gameplay-screen {
 	display: none;
 	justify-content: center;
 	align-items: center;
+	width: 100vw;
+	height: 100vh;
 }
 
-#gameplay .gameUI {
-	width: 85%;
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 5%;
-}
-
-#gameplay .gameUI #gameTimer,
-#gameplay .gameUI #gameScore, #gameplay .gameUI #clean {
-	width: 150px;
-	height: 50px;
-	z-index: 3;
-	font-size: 7.5vh;
-	font-weight: bold;
-	text-align: center;
-	color: var(--colorWhite);
-	font-family: var(--regularFont);
+/* Keyframes for text movement */
+@keyframes opacityText {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 /* Eye container style */
-#gameplay .eyeContainer {
+#gameplay-screen .eye-container {
 	background-color: transparent;
 	display: flex;
 	position: absolute;
@@ -338,122 +279,50 @@ body {
 }
 
 /* Eye styles */
-#gameplay .eye {
-	width: 400px;
-	height:   400px;
+#gameplay-screen .eye {
+	width: 450px;
+	height: 450px;
 	background-color: var(--colorWhite);
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-align: center;
-		-ms-flex-align: center;
-			align-items: center;
-	-webkit-box-pack: center;
-		-ms-flex-pack: center;
-			justify-content: center;
+	align-items: center;
+	justify-content: center;
 	margin: 0 2rem;
-	-webkit-clip-path: circle(50% at center);
-			clip-path: circle(50% at center);
+	clip-path: circle(50% at center);
 	position: relative;
 }
 
-/* Eye iris animation */
-#gameplay .eyeIris {
-	width: 75%;
-	height: 75%;
-	background-color: var(--darkColor);
-	border-radius: 50%;
-}
-
-#gameplay .block_1, .block_2 , .block_3 , .block_4 , .block_5, .block_6{
-	cursor: pointer;
-}
-
-#gameplay .block:hover {
-	transform: scale(1.2);
-}
-
-/* gameplay Screen 02 */
-#gameplay {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-}
-
-#gameplay .eyesContainer {
-	width: 85%;
-	display: flex;
-	justify-content: space-between;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-#gameplay .eyeSection_00,
-#gameplay .eyeSection_01 {
-	width: 500px;
-	height: 500px;
-	background-color: var(--colorWhite);
-	border-radius: 50%;
-	border: 5px solid var(--darkColor);
-	position: relative; 
-}
-
-#gameplay .eyeSection_00:after,
-#gameplay .eyeSection_01:after {
-	content: "";
-	position: absolute;
-	width: 70%;
-	height: 70%;
-	border-radius: 50%;
-	background-color: var(--darkColor);
-	top: 15%;
-	left: 15%;
-	z-index: 2;
-}
-
-#gameplay .eyeLocal00, .eyeLocal01 {
-	position: absolute;
-	z-index: 3;
-	width: 300px;
-	height: 300px;
-	border-radius: 50%;
-	top: 20%;
-	left: 20%;
-}
-
-#gameplay .smile {
+#gameplay-screen .smile {
 	width: 100px;
 	height: 100px;
 	position: absolute;
-	bottom: 20%;
+	bottom: 0;
 	left: 45%;
 }
 
-#gameplay .smile_mouth,
-#gameplay .smile_tongue {
+#gameplay-screen .smile-mouth,
+#gameplay-screen .smile-tongue {
 	position: absolute;
 }
 
-#gameplay .smile_mouth:before,
-#gameplay .smile_mouth:after {
+#gameplay-screen .smile-mouth:before,
+#gameplay-screen .smile-mouth:after {
 	position: absolute;
 	content: "";
 }
 
+#gameplay-screen .smile--yay .smile-face {
+	animation: yay 3s linear infinite alternate;
+}
 
-#gameplay .smile--yay .smile_mouth {
+#gameplay-screen .smile--yay .smile-mouth {
 	position: absolute;
 	background: transparent;
 }
 
-#gameplay .smile--yay .smile_mouth:after {
+#gameplay-screen .smile--yay .smile-mouth:after {
 	width: 180px;
-	height: 180px;;
-	left: calc(	-50% - 40px);
+	height: 180px;
+	left: calc(-50% - 40px);
 	top: -75px;
 	border-radius: 50%;
 	background: transparent;
@@ -463,28 +332,6 @@ body {
 	border-left-color: transparent;
 	border-right-color: transparent;
 	z-index: 1;
-}
-
-/* =========== UI - Screen 02 =========== */
-.gameUI {
-	width: 100%;
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	top: -15%;
-}
-
-.gameUI #gameTimer, .gameUI #clear,
-.gameUI #gameScore  {
-	width: 150px;
-	height: 150px;
-	font-size: 50px;
-	font-weight: bold;
-	z-index: 3;
-	color: var(--colorWhite);
-	font-family: var(--regularFont);
-	text-align: center;
 }
 
 .block {
@@ -501,157 +348,22 @@ body {
 	transform: scale(1.2);
 }
 
-/* =========== Screens =========== */
-.victoryScreen , .loseScreen, .tutorialScreen {
+
+/* =========== tutorial =========== */
+#tutorial-screen , #victory-screen, #lose-screen{
 	display: none;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	color: var(--colorWhite);
-	font-family: var(--regularFont);
-	text-transform: uppercase;
-}
-
-.victoryScreen h1, .loseScreen h1, .tutorialScreen h1{
-	font-weight: bold;
-	font-size: 30px;
-	color: var(--colorWhite);
-	text-align: center;
-}
-
-.victoryScreen #victoryScore {
-	font-size: 30px;
-	color: var(--colorYellow);
-	text-align: center;
-}
-
-/* Screen Choice Level*/
-.levelSelectionScreen {
-	display: none;
-	position: absolute;
-	z-index: 99;
-	width: 100%;
-}
-
-.selectLevelScreen  h1 {
-	position: absolute;
-	text-align: center;
-	top: 15%;
-	font-size: var(--regularFontSize);
-	font-family: var(--regularFont);
-	color: var(--colorWhite);
-}
-
-.selectLevelScreen  .levelSelection {
-	display: flex;
-	width: 80%;
+	width: 100vw;
 	height: 100vh;
-	justify-content: center;
-	gap: 100px;
-	align-items: center;
-	margin: 0 auto;
-}
-
-.selectLevelScreen  button {
-	width: 356px;
-	height: 185px;
-	font-size: var(--regularFontSize);
-	font-family: var(--regularFont);
 	color: var(--colorWhite);
-	background-color: var(--softColor);
-	border-radius: 20px;
-	position: relative;
 }
 
-.selectLevelScreen  button img {
-	position: absolute;
-	top: -60px;
-	left: 50%;
-	transform: translateX(-50%);
-}
-  
-.selectLevelScreen  button:hover {
-	width: 366px;
-	height: 195px;
-	background-color: var(--darkBgColor);
-	font-size: calc(var(--regularFontSize) + 10px);
+#victory-screen {
+	flex-direction: column;
 }
 
-
-/* =========== Media =========== */
-@media only screen and (max-width: 420px) {
-	#rotateScreen {
-		display: flex;
-	}
-
-	#rotateScreen img {
-		width: 25%;
-		margin: 0 auto;
-	}
-}
-
-/* Responsive styles for smaller screens */
-@media only screen and (min-width: 569px) and (max-width: 1024px) {
-	#gameStartScreen .eye {
-		width: 200px;
-		height: 200px;
-	}
-
-	.smile {
-		width: 100px;
-		height: 100px;
-		position: absolute;
-		bottom: -30%;
-		left: 45%;
-	}
-
-	.smile--yay .smile_mouth:after {
-		width: 150px;
-		height: 150px;
-	}
-
-	.gameBox {
-		width: 75px;
-		height:75px;
-		padding: 15px;
-		left: 15%;
-		top: 55%;
-	}
-}
-
-@media only screen and (max-width: 568px) {
-	#gameStartScreen .eye {
-			width: 180px;
-			height: 180px;
-		}
-
-	.gameBox {
-			width: 50px;
-			height: 50px;
-			padding: 15px;
-			left: 15%;
-			top: 55%;
-		}
-
-	.smile {
-			width: 75px;
-			height: 75px;
-			top: 90%;
-			left: 50%;
-		}
-	.smile--yay .smile_mouth:after {
-		width: 75px;
-		height: 75px;
-	}
-}
-
-@media only screen and (max-width: 420px) {
-	#rotateScreen {
-		display: flex;
-	}
-
-	#rotateScreen img {
-		width: 25%;
-		margin: 0 auto;
-	}
+#victoryScore {
+	display: block;
+	font-size: 50px;
 }
