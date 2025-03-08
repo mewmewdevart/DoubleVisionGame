@@ -1,7 +1,8 @@
 
 <p align="center">
-  <img src="https://github.com/mewmewdevart/DoubleVisionGame/assets/50052600/4bb76782-3562-4f13-a0d0-bfd4565f1150" width="15%" alt="Icons"/>
+  <img src="https://github.com/user-attachments/assets/3a1eafc5-3421-4bda-a1ff-e511e29003f6" width="15%" alt="Icons"/>
 </p>
+
 
 <h1 align="center">
   DoubleVision Game
