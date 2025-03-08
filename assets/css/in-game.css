@@ -1,0 +1,118 @@
+#in-game {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#in-game .eye-container {
+	display: flex;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#in-game .eye {
+	width: 400px;
+	height: 400px;
+	background-color: var(--colorWhite);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 2rem;
+	clip-path: circle(50% at center);
+	position: relative;
+}
+
+#in-game .eye-pupil {
+	display: none;
+	width: 100%;
+	height: 250px;
+	background: yellow;
+	position: absolute;
+	animation: blink 6s ease-in-out infinite;
+	z-index: 1;
+}
+
+#in-game .upper-pupil {
+	top: 0;
+}
+
+#in-game .lower-pupil {
+	bottom: 0;
+}
+
+.eyeLocal00, .eyeLocal01 {
+	width: 400px;
+	height: 400px;
+}
+
+.block {
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.eyeLocal00 .block_1 { top: 30px; left: 80px; }
+.eyeLocal00 .block_2 { top: 130px; right: 40px; }
+.eyeLocal00 .block_3 { bottom: 60px; left: 170px; }
+
+.eyeLocal01 .block_1 { top: 90px; left: 20px; }
+.eyeLocal01 .block_2 { top: 40px; right: 90px; }
+.eyeLocal01 .block_3 { bottom: 90px; left: 60%; }
+
+
+#in-game .smile {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 0;
+	left: 45%;
+}
+
+
+#in-game .smile-mouth,
+#in-game .smile-tongue {
+	position: absolute;
+}
+
+#in-game .smile-mouth:before,
+#in-game .smile-mouth:after {
+	position: absolute;
+	content: "";
+}
+
+#in-game .smile--yay .smile-face {
+	animation: yay 3s linear infinite alternate;
+}
+
+#in-game .smile--yay .smile-mouth {
+	position: absolute;
+	background: transparent;
+}
+
+#in-game .smile--yay .smile-mouth:after {
+	width: 180px;
+	height: 180px;
+	left: calc(-50% - 40px);
+	top: -75px;
+	border-radius: 50%;
+	background: transparent;
+	border: 16px solid var(--darkColor);
+	box-sizing: border-box;
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	z-index: 1;
+}
+
+@keyframes yay {
+	25% {
+		transform: rotate(-15deg);
+	}
+	75% {
+		transform: rotate(15deg);
+	}
+}
