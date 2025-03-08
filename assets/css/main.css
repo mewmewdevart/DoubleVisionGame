@@ -1,0 +1,20 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--regularFont: 'Days One', sans-serif;
+	--bgColor: #548CFF;
+	--darkBgColor: #3260bd;
+	--softColor: #EC939D;
+	--colorWhite: #ffffff;
+	--colorYellow: #F4BF96;
+	--darkColor: #191825;
+	--regularFontSize: 40px;
+}
+
+body {
+	background-color: var(--bgColor);
+	overflow: hidden;
+}
