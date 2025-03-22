@@ -5,7 +5,7 @@
 
 
 <h1 align="center">
-  DoubleVision Game
+  DoubleVision Game (⚠️ In development)
 </h1>
 
 <p align="center">
