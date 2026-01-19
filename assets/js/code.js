@@ -1,5 +1,4 @@
-// Constants for image sources
-const IMAGE_SOURCES = [
+const IMAGES_EASY = [
 	'./assets/images/icon_00.png',
 	'./assets/images/icon_01.png',
 	'./assets/images/icon_02.png',
@@ -7,292 +6,284 @@ const IMAGE_SOURCES = [
 	'./assets/images/icon_04.png',
 ];
 
-// DOM elements
-const START_SCREEN = document.getElementById('game-start-screen');
-const GAMEPLAY_SCREEN = document.getElementById('gameplay-screen');
-const TUTORIAL_SCREEN = document.getElementById('tutorial-screen');
-const SCORE_ELEMENT = document.getElementById('gameScore');
-const TIMER_ELEMENT = document.getElementById('gameTimer');
+const IMAGES_HARD = [
+	'./assets/images/icon_05.png',
+	'./assets/images/icon_06.png',
+	'./assets/images/icon_07.png',
+	'./assets/images/icon_08.png',
+	'./assets/images/icon_09.png',
+	'./assets/images/icon_10.png',
+	'./assets/images/icon_11.png',
+	'./assets/images/icon_12.png',
+	'./assets/images/icon_13.png',
+];
 
-const VICTORY_SCREEN = document.getElementById('victory-screen');
-const VICTORY_PHRASE = document.getElementById('congratulationsMessage');
-const WINSCORE_ELEMENT = document.getElementById('victoryScore');
-const LOSE_SCREEN = document.getElementById('lose-screen');
-
-// Congratulatory phrases displayed at the end of the game
 const CONGRATULATORY_PHRASES = [
 	"Congratulations, you are a Perfectionist",
 	"Glorious Champion: Your Skills Know No Bounds!",
 	"Eyes of Tandera: You've Transcended the Game!",
 ];
 
-// Game state variables
-let randomChosenImage;
-let arrRandomImages;
-let score = 0;
-let timer = 60;
-let timerInterval;
-
-// Initial positions of game blocks
 const BLOCK_POSITIONS_EASY = [
 	{ left: 175, top: 30 },
 	{ left: 100, top: 275 },
 	{ left: 300, top: 200 },
 ];
 
-// Event listener for key press to start the game
-document.addEventListener('keydown', function (event) {
-	START_SCREEN.style.display = 'none';
-	TUTORIAL_SCREEN.style.display = 'flex';
+const BLOCK_POSITIONS_HARD = [
+	{ left: 175, top: 20 },  // Top Center
+	{ left: 60, top: 150 },  // Left Middle
+	{ left: 290, top: 150 }, // Right Middle
+	{ left: 100, top: 280 }, // Bottom Left
+	{ left: 250, top: 280 }, // Bottom Right
+];
 
-	// Set a timeout to reset the page after 5 seconds
+const DOM = {
+	startScreen: document.getElementById('game-start-screen'),
+	levelSelectScreen: document.getElementById('level-select-screen'),
+	gameplayScreen: document.getElementById('gameplay-screen'),
+	tutorialScreen: document.getElementById('tutorial-screen'),
+	scoreElement: document.getElementById('gameScore'),
+	timerElement: document.getElementById('gameTimer'),
+	victoryScreen: document.getElementById('victory-screen'),
+	victoryPhrase: document.getElementById('congratulationsMessage'),
+	victoryScore: document.getElementById('victoryScore'),
+	loseScreen: document.getElementById('lose-screen'),
+	eyeLocal00: document.querySelector('.eyeLocal00'),
+	eyeLocal01: document.querySelector('.eyeLocal01'),
+	btnEasy: document.getElementById('btn-easy'),
+	btnHard: document.getElementById('btn-hard'),
+	imageDisplay: document.getElementById('imageDisplay'),
+};
+
+let state = {
+	randomChosenImage: null,
+	arrRandomImages: [],
+	score: 0,
+	timer: 60,
+	timerInterval: null,
+	isPlaying: false,
+	difficulty: 'easy',
+	currentImageIndex: 0,
+	slideShowInterval: null
+};
+
+function init() {
+	startSlideShow();
+
+	// 1. Start Screen -> Level Select
+	DOM.startScreen.addEventListener('click', () => {
+		stopSlideShow();
+		DOM.startScreen.style.display = 'none';
+		DOM.levelSelectScreen.style.display = 'flex';
+	});
+
+	// 2. Level Select -> Game
+	DOM.btnEasy.addEventListener('click', (e) => {
+		e.stopPropagation(); // Prevent bubbling if needed
+		handleGameStartSequence('easy');
+	});
+	DOM.btnHard.addEventListener('click', (e) => {
+		e.stopPropagation();
+		handleGameStartSequence('hard');
+	});
+}
+
+function handleGameStartSequence(difficulty) {
+	state.difficulty = difficulty;
+
+	DOM.levelSelectScreen.style.display = 'none'; // Hide Level Select
+	DOM.tutorialScreen.querySelector('h2').textContent = difficulty === 'easy'
+		? "Easy Mode: Find the matching image!"
+		: "Hard Mode: Find the matching image!";
+
+	DOM.tutorialScreen.style.display = 'flex';
+
 	setTimeout(() => {
-	gameStart();
-	}, 5000);
-});
-
-// Function to start the game
-function gameStart() {
-	TUTORIAL_SCREEN.style.display = 'none';
-	GAMEPLAY_SCREEN.style.display = 'flex';
-
-	// Call updateTimer immediately to display the initial value of the timer
-	updateTimer();
-
-	// Start the timer interval
-	timerInterval = setInterval(updateTimer, 1000);
+		DOM.tutorialScreen.style.display = 'none';
+		startGame();
+	}, 3000);
 }
 
-// Function to update the displayed timer
-function updateTimer() {
-	// Decrease the timer
-	timer--;
+function startGame() {
+	resetGameState();
+	DOM.gameplayScreen.style.display = 'flex';
 
-	// Update the displayed timer after decrementing
-	TIMER_ELEMENT.textContent = `${timer}s`;
+	startRound();
+	updateTimerDisplay();
+	state.timerInterval = setInterval(() => {
+		state.timer--;
+		updateTimerDisplay();
 
-	// Check if the timer has reached 0
-	if (timer === 0) {
-	clearInterval(timerInterval);
-
-	// Determine whether to show the lose or victory screen
-	if (score <= 0)
-		loseScreenDisplay();
-	else
-		victoryScreenDisplay();
-	}
+		if (state.timer <= 0) {
+			endGame();
+		}
+	}, 1000);
 }
 
-// Get a random image that is not in the existing set
-function getRandomImage(existingImages) {
-	const availableImages = IMAGE_SOURCES.filter(img => !existingImages.includes(img));
-	const randomIndex = Math.floor(Math.random() * availableImages.length);
-	return availableImages[randomIndex];
+function resetGameState() {
+	state.score = 0;
+	state.timer = 60;
+	state.isPlaying = true;
+	updateScoreDisplay();
 }
 
-// Choose a random image for the game
-function chooseRandomImage() {
-	randomChosenImage = getRandomImage([]);
-	arrRandomImages = IMAGE_SOURCES.filter(img => img !== randomChosenImage);
-}
+function startRound() {
+	const isHard = state.difficulty === 'hard';
+	const imagePool = isHard ? IMAGES_HARD : IMAGES_EASY;
+	const itemsPerEye = isHard ? 5 : 3;
 
-// Shuffle the block positions
-function shuffleBlockPositions(blockPositions) {
-	const shuffledPositions = [...blockPositions];
+	// 1 Match + (ItemsPerEye - 1) LeftDistractors + (ItemsPerEye - 1) RightDistractors
+	const uniqueNeeded = 1 + (itemsPerEye - 1) * 2;
 
-	for (let i = shuffledPositions.length - 1; i > 0; i--) {
-	const j = Math.floor(Math.random() * (i + 1));
-	[shuffledPositions[i], shuffledPositions[j]] = [shuffledPositions[j], shuffledPositions[i]];
-	}
-	return shuffledPositions;
-}
+	const roundImages = getUniqueRandomImages(uniqueNeeded, imagePool);
 
-// Insert random images into the specified container
-function insertRandomImages(localDivClass) {
-	const localDiv = document.querySelector(`.${localDivClass}`);
-	const blocks = localDiv.querySelectorAll('.block');
-	const existingImages = [];
-	const newBlockPositions = shuffleBlockPositions(BLOCK_POSITIONS_EASY);
-
-	blocks.forEach((block, i) => {
-	const img = document.createElement('img');
-	let randomImage;
-
-	if (i === 0) {
-		randomImage = randomChosenImage;
-	} else {
-		randomImage = getRandomImage(existingImages);
-		arrRandomImages = arrRandomImages.filter(img => img !== randomImage);
+	if (roundImages.length < uniqueNeeded) {
+		console.error("Not enough images in pool for this mode.");
+		return;
 	}
 
-	// Update position based on the blockPositions array
-	const position = newBlockPositions[i % newBlockPositions.length];
-	block.style.left = `${position.left}px`;
-	block.style.top = `${position.top}px`;
-	img.addEventListener('click', () => {
-		if (randomImage === randomChosenImage) {
-		// Increment the score by 10 only if the clicked image matches the chosen image
-		score += 10;
-		if (score > 0)
-			SCORE_ELEMENT.style.color = '#fff';
-		SCORE_ELEMENT.textContent = score.toString();
-		initData();
-		} else {
-		score -= 10;
-		SCORE_ELEMENT.textContent = score.toString();
-		if (score <= 0)
-			SCORE_ELEMENT.style.color = '#ff9898';
-		if (score < -30)
-			loseScreenDisplay();
-		}
-	});
-	// Set image attributes and append to the block
-	img.src = randomImage;
-	img.alt = `Icon ${i}`;
-	img.style.width = '100%';
-	img.style.height = '100%';
+	const targetImage = roundImages[0];
+	const distractorsCount = itemsPerEye - 1;
+	const leftDistractors = roundImages.slice(1, 1 + distractorsCount);
+	const rightDistractors = roundImages.slice(1 + distractorsCount, 1 + distractorsCount * 2);
 
-	block.innerHTML = '';
-	block.appendChild(img);
+	state.randomChosenImage = targetImage;
 
-	existingImages.push(randomImage);
-	});
+	const leftEyeImages = shuffleArray([targetImage, ...leftDistractors]);
+	const rightEyeImages = shuffleArray([targetImage, ...rightDistractors]);
+
+	populateEye(DOM.eyeLocal00, leftEyeImages);
+	populateEye(DOM.eyeLocal01, rightEyeImages);
 }
 
-// Check if additional random images need to be added to the container
-function checkToAddRandomImages(localDivClass) {
-	const localDiv = document.querySelector(`.${localDivClass}`);
-	const newBlockPositions = shuffleBlockPositions(BLOCK_POSITIONS_EASY);
+function populateEye(container, imagesToPlace) {
+	if (!container) return;
 
-	if (localDiv) {
-	const blocks = localDiv.getElementsByClassName('block');
+	container.innerHTML = '';
 
-	for (let i = 0; i < blocks.length && i < arrRandomImages.length + 1 && i < newBlockPositions.length; i++) {
-		const img = new Image();
-		let randomImage;
+	const positions = shuffleArray(state.difficulty === 'hard'
+		? [...BLOCK_POSITIONS_HARD]
+		: [...BLOCK_POSITIONS_EASY]
+	);
 
-		if (i === 0) {
-		randomImage = randomChosenImage;
-		} else {
-		randomImage = arrRandomImages[i - 1];
+	imagesToPlace.forEach((imgSrc, index) => {
+		const block = document.createElement('div');
+		block.className = 'block';
+		block.style.position = 'absolute';
+		block.style.width = '100px';
+		block.style.height = '100px';
+		block.style.cursor = 'pointer';
+
+		if (positions[index]) {
+			block.style.left = `${positions[index].left}px`;
+			block.style.top = `${positions[index].top}px`;
 		}
 
-		img.addEventListener('click', () => {
-		if (randomImage === randomChosenImage) {
-			score += 10;
-			if (score > 0)
-			SCORE_ELEMENT.style.color = '#fff';
-			SCORE_ELEMENT.textContent = score.toString();
-			initData();
-		} else {
-			score -= 10;
-			SCORE_ELEMENT.textContent = score.toString();
-			if (score <= 0)
-			SCORE_ELEMENT.style.color = '#ff9898';
-			if (score < -30)
-			loseScreenDisplay();
-		}
+		const imgObj = document.createElement('img');
+		imgObj.src = imgSrc;
+		imgObj.alt = (imgSrc === state.randomChosenImage) ? "Target Image" : "Distractor Image";
+		imgObj.style.width = '100%';
+		imgObj.style.height = '100%';
+		imgObj.dataset.src = imgSrc;
+
+		block.addEventListener('click', (e) => {
+			e.stopPropagation();
+			handleImageClick(imgSrc);
 		});
 
-		// Set image attributes and append to the block
-		img.src = randomImage;
-		img.alt = `Icon ${i}`;
-		img.style.width = '100%';
-		img.style.height = '100%';
+		block.appendChild(imgObj);
+		container.appendChild(block);
+	});
+}
 
-		// Update position based on the newBlockPositions array
-		const position = newBlockPositions[i];
-		blocks[i].style.left = `${position.left}px`;
-		blocks[i].style.top = `${position.top}px`;
+function handleImageClick(clickedImageSrc) {
+	if (!state.isPlaying) return;
 
-		blocks[i].innerHTML = '';
-		blocks[i].appendChild(img);
-	}
+	if (clickedImageSrc === state.randomChosenImage) {
+		state.score += 10;
+		updateScoreDisplay();
+		if (state.score > 0) DOM.scoreElement.style.color = '#fff';
+		startRound();
 	} else {
-	console.error(`Container with class '${localDivClass}' not found.`);
+		state.score -= 10;
+		updateScoreDisplay();
+		if (state.score <= 0) DOM.scoreElement.style.color = '#ff9898';
+		if (state.score < -30) endGame();
 	}
 }
 
-// Event listener for key press to start the game
-document.addEventListener('keydown', function (event) {
-	START_SCREEN.style.display = 'none';
-	TUTORIAL_SCREEN.style.display = 'flex';
+function endGame() {
+	state.isPlaying = false;
+	clearInterval(state.timerInterval);
 
-	// Set a timeout to reset the page after 5 seconds
+	DOM.gameplayScreen.style.display = 'none';
+
+	if (state.score > 0) {
+		DOM.victoryScreen.style.display = 'flex';
+		const phrase = CONGRATULATORY_PHRASES[Math.floor(Math.random() * CONGRATULATORY_PHRASES.length)];
+		DOM.victoryPhrase.textContent = phrase;
+		DOM.victoryScore.textContent = `Final Score: ${state.score}`;
+	} else {
+		DOM.loseScreen.style.display = 'flex';
+	}
+
 	setTimeout(() => {
-	TUTORIAL_SCREEN.style.display = 'none';
-	initData();
-	gameStart();
-	}, 5000);
-});
-
-// Initialize data for the game
-function initData() {
-	chooseRandomImage();
-	insertRandomImages('eyeLocal00');
-
-	console.log(randomChosenImage);
-	console.log(arrRandomImages);
-
-	checkToAddRandomImages('eyeLocal01');
-	console.log(randomChosenImage);
-	console.log(arrRandomImages);
-}
-
-// Display the victory screen
-function victoryScreenDisplay() {
-	GAMEPLAY_SCREEN.style.display = 'none';
-	VICTORY_SCREEN.style.display = 'flex';
-
-
-	const randomIndex = Math.floor(Math.random() * CONGRATULATORY_PHRASES.length);
-	const selectedPhrase = CONGRATULATORY_PHRASES[randomIndex];
-	VICTORY_PHRASE.textContent = selectedPhrase;
-
-	// Get the score content from SCORE_ELEMENT
-	const scoreContent = SCORE_ELEMENT.textContent;
-
-	let scoreFeedback = SCORE_ELEMENT;
-	scoreFeedback.textContent = scoreContent;
-
-	// Display the final score in the victory screen
-	WINSCORE_ELEMENT.textContent = `Final Score: ${scoreContent}`;
-
-	// Set a timeout to reset the page after 5 seconds
-	setTimeout(() => {
-		location.reload();
+		DOM.victoryScreen.style.display = 'none';
+		DOM.loseScreen.style.display = 'none';
+		DOM.startScreen.style.display = 'flex';
+		startSlideShow();
 	}, 5000);
 }
 
-
-
-// Display the lose screen
-function loseScreenDisplay() {
-	GAMEPLAY_SCREEN.style.display = 'none';
-	LOSE_SCREEN.style.display = 'flex';
-
-	// Set a timeout to reset the page after 5 seconds
-	setTimeout(() => {
-	location.reload();
-	}, 5000);
+function updateTimerDisplay() {
+	DOM.timerElement.textContent = `${state.timer}s`;
 }
 
-// Change the image/icon source on the start screen
-function changeIconStartScreen(imageNumber) {
-	const imageContainer = document.getElementById('imageDisplay');
-	imageContainer.innerHTML = `<img src="${IMAGE_SOURCES[imageNumber]}" alt="Icon ${imageNumber}">`;
+function updateScoreDisplay() {
+	DOM.scoreElement.textContent = state.score.toString();
 }
 
-// Display each image for 5 seconds and then switch to the next one
-let currentImage = 0;
-function displayImages() {
-	changeIconStartScreen(currentImage);
-
-	setTimeout(() => {
-	currentImage = (currentImage + 1) % IMAGE_SOURCES.length;
-	displayImages();
-	}, 5000);
+function shuffleArray(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+	return array;
 }
 
-// Start the image display
-displayImages();
+function getUniqueRandomImages(count, sourceArray) {
+	const shuffled = [...sourceArray];
+	shuffleArray(shuffled);
+	return shuffled.slice(0, count);
+}
+
+// --- Slideshow ---
+function startSlideShow() {
+	// Only use EASY images for the slideshow as they are safer 00-04
+	const images = IMAGES_EASY;
+
+	if (state.slideShowInterval) clearInterval(state.slideShowInterval);
+
+	const showNextImage = () => {
+		const img = images[state.currentImageIndex];
+		// Ensure imageDisplay is visible if it was hidden
+		DOM.imageDisplay.style.display = 'block';
+		DOM.imageDisplay.innerHTML = `<img src="${img}" alt="Icon" style="width: 100%; height: 100%; object-fit: contain;">`;
+		state.currentImageIndex = (state.currentImageIndex + 1) % images.length;
+	};
+
+	showNextImage();
+	state.slideShowInterval = setInterval(showNextImage, 2000); // Change every 2 seconds
+}
+
+function stopSlideShow() {
+	if (state.slideShowInterval) {
+		clearInterval(state.slideShowInterval);
+		state.slideShowInterval = null;
+	}
+	// Also hide the display? Optional, but safer to hide overlapping content
+	DOM.imageDisplay.style.display = 'none';
+}
+
+init();

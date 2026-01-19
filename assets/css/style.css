@@ -14,6 +14,7 @@
 	--softColor: #EC939D;
 	--colorWhite: #ffffff;
 	--colorYellow: #F4BF96;
+	--colorYellowDark: #FFCE38;
 	--darkColor: #191825;
 	--regularFontSize: 40px;
 }
@@ -29,15 +30,22 @@ body {
 }
 
 /* =========== gameStartScreen - Screen 00 =========== */
-#game-start-screen {
+#game-start-screen,
+#level-select-screen {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: purple;
+	background-color: var(--bgColor);
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 /* Heading style */
-#game-start-screen h1 {
+#game-start-screen h1,
+#level-select-screen h1 {
 	position: absolute;
 	bottom: 5%;
 	color: var(--colorWhite);
@@ -52,16 +60,19 @@ body {
 	0% {
 		opacity: 1;
 	}
+
 	50% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}
 }
 
 /* Eye container style */
-#game-start-screen .eye-container {
+#game-start-screen .eye-container,
+#level-select-screen .eye-container {
 	background-color: transparent;
 	display: flex;
 	position: absolute;
@@ -71,7 +82,8 @@ body {
 }
 
 /* Eye styles */
-#game-start-screen .eye {
+#game-start-screen .eye,
+#level-select-screen .eye {
 	width: 400px;
 	height: 400px;
 	background-color: var(--colorWhite);
@@ -84,7 +96,8 @@ body {
 }
 
 /* Eye iris animation */
-#game-start-screen .eye-iris {
+#game-start-screen .eye-iris,
+#level-select-screen .eye-iris {
 	width: 50%;
 	height: 50%;
 	background-color: var(--darkColor);
@@ -93,7 +106,8 @@ body {
 }
 
 /* Eye pupil animation */
-#game-start-screen .eye-pupil {
+#game-start-screen .eye-pupil,
+#level-select-screen .eye-pupil {
 	width: 100%;
 	height: 250px;
 	background: var(--colorYellow);
@@ -103,22 +117,31 @@ body {
 }
 
 /* Pupil position styles */
-#game-start-screen .upper-pupil {
+#game-start-screen .upper-pupil,
+#level-select-screen .upper-pupil {
 	top: 0;
 }
 
-#game-start-screen .lower-pupil {
+#game-start-screen .lower-pupil,
+#level-select-screen .lower-pupil {
 	bottom: 0;
 }
 
 /* Keyframes for eye movement */
 @keyframes movement {
-	0%, 10%, 30%, 80%, 100% {
+
+	0%,
+	10%,
+	30%,
+	80%,
+	100% {
 		transform: translateX(0);
 	}
+
 	20% {
 		transform: translateX(-80%);
 	}
+
 	90% {
 		transform: translateX(80%);
 	}
@@ -126,13 +149,24 @@ body {
 
 /* Keyframes for eye blinking */
 @keyframes blink {
-	0%, 30%, 34%, 38%, 50%, 80%, 100% {
+
+	0%,
+	30%,
+	34%,
+	38%,
+	50%,
+	80%,
+	100% {
 		height: 20%;
 	}
-	32%, 36% {
+
+	32%,
+	36% {
 		height: 40%;
 	}
-	60%, 70% {
+
+	60%,
+	70% {
 		height: 45%;
 	}
 }
@@ -168,7 +202,8 @@ body {
 	top: 6px;
 }
 
-#game-start-screen .smile {
+#game-start-screen .smile,
+#level-select-screen .smile {
 	width: 100px;
 	height: 100px;
 	position: absolute;
@@ -177,26 +212,33 @@ body {
 }
 
 #game-start-screen .smile-mouth,
-#game-start-screen .smile-tongue {
+#level-select-screen .smile-mouth,
+#game-start-screen .smile-tongue,
+#level-select-screen .smile-tongue {
 	position: absolute;
 }
 
 #game-start-screen .smile-mouth:before,
-#game-start-screen .smile-mouth:after {
+#level-select-screen .smile-mouth:before,
+#game-start-screen .smile-mouth:after,
+#level-select-screen .smile-mouth:after {
 	position: absolute;
 	content: "";
 }
 
-#game-start-screen .smile--yay .smile-face {
+#game-start-screen .smile--yay .smile-face,
+#level-select-screen .smile--yay .smile-face {
 	animation: yay 3s linear infinite alternate;
 }
 
-#game-start-screen .smile--yay .smile-mouth {
+#game-start-screen .smile--yay .smile-mouth,
+#level-select-screen .smile--yay .smile-mouth {
 	position: absolute;
 	background: transparent;
 }
 
-#game-start-screen .smile--yay .smile-mouth:after {
+#game-start-screen .smile--yay .smile-mouth:after,
+#level-select-screen .smile--yay .smile-mouth:after {
 	width: 180px;
 	height: 180px;
 	left: calc(-50% - 40px);
@@ -215,13 +257,14 @@ body {
 	25% {
 		transform: rotate(-15deg);
 	}
+
 	75% {
 		transform: rotate(15deg);
 	}
 }
 
 /* =========== gameplay-screen - Screen 01 =========== */
-.gambiarra {
+.debug-info {
 	opacity: 0;
 }
 
@@ -236,13 +279,16 @@ body {
 	vertical-align: baseline;
 	font-weight: 700;
 	margin-top: 2%;
+	user-select: none;
 }
 
-.gameUI .timer-design, .gameUI .score-design{
+.gameUI .timer-design,
+.gameUI .score-design {
 	display: flex;
 }
 
-.gameUI .timer-design img, .gameUI .score-design img{
+.gameUI .timer-design img,
+.gameUI .score-design img {
 	width: 10%;
 	height: 10%;
 }
@@ -260,9 +306,11 @@ body {
 	0% {
 		opacity: 1;
 	}
+
 	50% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 1;
 	}
@@ -340,7 +388,12 @@ body {
 	height: 100px;
 }
 
-.block_1, .block_2 , .block_3 , .block_4 , .block_5, .block_6{
+.block_1,
+.block_2,
+.block_3,
+.block_4,
+.block_5,
+.block_6 {
 	cursor: pointer;
 }
 
@@ -350,7 +403,9 @@ body {
 
 
 /* =========== tutorial =========== */
-#tutorial-screen , #victory-screen, #lose-screen{
+#tutorial-screen,
+#victory-screen,
+#lose-screen {
 	display: none;
 	justify-content: center;
 	align-items: center;
@@ -366,4 +421,78 @@ body {
 #victoryScore {
 	display: block;
 	font-size: 50px;
+}
+
+.start-controls {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--bgColor);
+	height: 100vh;
+	width: 100vw;
+	z-index: 9999;
+	gap: 2rem;
+}
+
+.start-controls h2 {
+	color: var(--colorWhite);
+	font-size: 20px;
+	font-family: var(--regularFont);
+	opacity: 1;
+	font-size: 2rem;
+	animation: opacityText 2s ease-in-out infinite;
+}
+
+.start-controls button {
+	background-color: var(--colorWhite);
+	color: var(--darkColor);
+	border: none;
+	padding: 1rem 2rem;
+	font-size: 1rem;
+	font-family: var(--regularFont);
+	cursor: pointer;
+	border-radius: 5px;
+	transition: all 0.3s ease;
+	position: relative;
+	width: 200px;
+	font-family: var(--regularFont);
+}
+
+.start-controls button::before {
+	content: "";
+	position: absolute;
+	left: -60px;
+	/* distância à esquerda do botão */
+	top: 50%;
+	transform: translateY(-50%) scale(0.8);
+	width: 48px;
+	height: 48px;
+
+	background-image: url("../images/icon_00.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	opacity: 0;
+	pointer-events: none;
+	transition: all 0.3s ease;
+}
+
+.start-controls button:hover {
+	background-color: var(--colorYellowDark);
+	transform: scale(1.1);
+}
+
+.start-controls button:hover::before {
+	opacity: 1;
+	transform: translateY(-50%) scale(1);
+}
+
+#imageDisplay {
+	font-size: 2rem;
+	font-weight: bold;
+	color: var(--colorWhite);
+	text-align: center;
+	line-height: 1;
 }
