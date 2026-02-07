@@ -11,13 +11,17 @@
 	<b><i>DoubleVision is a fast-paced matching game developed with pure HTML, CSS, and JavaScript. Challenge your focus and visual memory!</i></b><br>
 </p>
 
+
 <p align="center">
 	<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/mewmewdevart/DoubleVisionGame?color=6272a4" />
 	<img alt="Main language" src="https://img.shields.io/github/languages/top/mewmewdevart/DoubleVisionGame?color=6272a4"/>
 	<img alt="License" src="https://img.shields.io/github/license/mewmewdevart/DoubleVisionGame?color=6272a4"/>
 </p>
 
----
+<p align="center">
+<a href="https://mewmewdevart.github.io/DoubleVisionGame/">🚀 Play the Game Now</a>
+</p>
+
 
 ## 🎮 About the Game
 DoubleVision is a reflex-based minigame where you must identify matching images between two "eyes" on the screen.
@@ -55,11 +59,5 @@ DoubleVision is a reflex-based minigame where you must identify matching images 
 - `assets/js/code.js`: Core game logic and audio handling.
 - `assets/images/`: Game icons and UI assets.
 - `assets/sounds/`: Background music and sound effects.
-
----
-
-<p align="center">
-<a href="https://mewmewdevart.github.io/DoubleVisionGame/">🚀 Play the Game Now</a>
-</p>
 
 <p align="center"> Developed with love 💜 by Larissa Cristina Benedito (Mewmew/Larcrist). </p>
