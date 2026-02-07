@@ -65,22 +65,42 @@ let state = {
 	isPlaying: false,
 	difficulty: 'easy',
 	currentImageIndex: 0,
-	slideShowInterval: null
+	slideShowInterval: null,
+	isMuted: false
 };
+
+const AUDIO = {
+	success: new Audio('./assets/sounds/success.wav'),
+	fail: new Audio('./assets/sounds/fail.wav'),
+	bgm: new Audio('./assets/sounds/puzzles.ogg'),
+};
+
+AUDIO.bgm.loop = true;
+AUDIO.bgm.volume = 0.5;
+AUDIO.success.volume = 0.6;
+AUDIO.fail.volume = 0.6;
 
 function init() {
 	startSlideShow();
 
-	// 1. Start Screen -> Level Select
+	const btnMute = document.getElementById('btn-mute');
+	if (btnMute) {
+		btnMute.addEventListener('click', (e) => {
+			e.stopPropagation();
+			toggleMute(btnMute);
+		});
+	}
+
 	DOM.startScreen.addEventListener('click', () => {
+		AUDIO.bgm.play().catch(e => console.log("Audio play failed:", e));
+
 		stopSlideShow();
 		DOM.startScreen.style.display = 'none';
 		DOM.levelSelectScreen.style.display = 'flex';
 	});
 
-	// 2. Level Select -> Game
 	DOM.btnEasy.addEventListener('click', (e) => {
-		e.stopPropagation(); // Prevent bubbling if needed
+		e.stopPropagation();
 		handleGameStartSequence('easy');
 	});
 	DOM.btnHard.addEventListener('click', (e) => {
@@ -92,7 +112,7 @@ function init() {
 function handleGameStartSequence(difficulty) {
 	state.difficulty = difficulty;
 
-	DOM.levelSelectScreen.style.display = 'none'; // Hide Level Select
+	DOM.levelSelectScreen.style.display = 'none';
 	DOM.tutorialScreen.querySelector('h2').textContent = difficulty === 'easy'
 		? "Easy Mode: Find the matching image!"
 		: "Hard Mode: Find the matching image!";
@@ -126,6 +146,10 @@ function resetGameState() {
 	state.timer = 60;
 	state.isPlaying = true;
 	updateScoreDisplay();
+	if (AUDIO.bgm.paused) {
+		AUDIO.bgm.currentTime = 0;
+		AUDIO.bgm.play().catch(e => console.log("BGM play failed:", e));
+	}
 }
 
 function startRound() {
@@ -133,7 +157,6 @@ function startRound() {
 	const imagePool = isHard ? IMAGES_HARD : IMAGES_EASY;
 	const itemsPerEye = isHard ? 5 : 3;
 
-	// 1 Match + (ItemsPerEye - 1) LeftDistractors + (ItemsPerEye - 1) RightDistractors
 	const uniqueNeeded = 1 + (itemsPerEye - 1) * 2;
 
 	const roundImages = getUniqueRandomImages(uniqueNeeded, imagePool);
@@ -202,11 +225,17 @@ function handleImageClick(clickedImageSrc) {
 
 	if (clickedImageSrc === state.randomChosenImage) {
 		state.score += 10;
+		AUDIO.success.currentTime = 0;
+		AUDIO.success.play().catch(e => console.log("Sound play failed:", e));
+
 		updateScoreDisplay();
 		if (state.score > 0) DOM.scoreElement.style.color = '#fff';
 		startRound();
 	} else {
 		state.score -= 10;
+		AUDIO.fail.currentTime = 0;
+		AUDIO.fail.play().catch(e => console.log("Sound play failed:", e));
+
 		updateScoreDisplay();
 		if (state.score <= 0) DOM.scoreElement.style.color = '#ff9898';
 		if (state.score < -30) endGame();
@@ -216,6 +245,9 @@ function handleImageClick(clickedImageSrc) {
 function endGame() {
 	state.isPlaying = false;
 	clearInterval(state.timerInterval);
+
+	AUDIO.bgm.pause();
+	AUDIO.bgm.currentTime = 0;
 
 	DOM.gameplayScreen.style.display = 'none';
 
@@ -258,9 +290,7 @@ function getUniqueRandomImages(count, sourceArray) {
 	return shuffled.slice(0, count);
 }
 
-// --- Slideshow ---
 function startSlideShow() {
-	// Only use EASY images for the slideshow as they are safer 00-04
 	const images = IMAGES_EASY;
 
 	if (state.slideShowInterval) clearInterval(state.slideShowInterval);
@@ -282,8 +312,17 @@ function stopSlideShow() {
 		clearInterval(state.slideShowInterval);
 		state.slideShowInterval = null;
 	}
-	// Also hide the display? Optional, but safer to hide overlapping content
 	DOM.imageDisplay.style.display = 'none';
+}
+
+function toggleMute(btn) {
+	state.isMuted = !state.isMuted;
+	const icon = state.isMuted ? '🔇' : '🔊';
+	btn.textContent = icon;
+
+	AUDIO.bgm.muted = state.isMuted;
+	AUDIO.success.muted = state.isMuted;
+	AUDIO.fail.muted = state.isMuted;
 }
 
 init();
