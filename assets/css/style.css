@@ -1,12 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Days+One&display=swap');
 
-/* ======= CSS RESET  ======= */
 * {
 	margin: 0;
 	padding: 0;
 }
 
-/* ======= SETTINGS  ======= */
 :root {
 	--regularFont: 'Days One', sans-serif;
 	--bgColor: #548CFF;
@@ -29,7 +27,6 @@ body {
 	margin: 0;
 }
 
-/* =========== gameStartScreen - Screen 00 =========== */
 #game-start-screen,
 #level-select-screen {
 	display: flex;
@@ -43,7 +40,6 @@ body {
 	left: 0;
 }
 
-/* Heading style */
 #game-start-screen h1,
 #level-select-screen h1 {
 	position: absolute;
@@ -55,7 +51,6 @@ body {
 	animation: opacityText 3s ease-in-out infinite;
 }
 
-/* Keyframes for text movement */
 @keyframes opacityText {
 	0% {
 		opacity: 1;
@@ -70,7 +65,6 @@ body {
 	}
 }
 
-/* Eye container style */
 #game-start-screen .eye-container,
 #level-select-screen .eye-container {
 	background-color: transparent;
@@ -81,7 +75,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-/* Eye styles */
 #game-start-screen .eye,
 #level-select-screen .eye {
 	width: 400px;
@@ -95,7 +88,6 @@ body {
 	position: relative;
 }
 
-/* Eye iris animation */
 #game-start-screen .eye-iris,
 #level-select-screen .eye-iris {
 	width: 50%;
@@ -105,7 +97,6 @@ body {
 	animation: movement 6s ease-in-out infinite;
 }
 
-/* Eye pupil animation */
 #game-start-screen .eye-pupil,
 #level-select-screen .eye-pupil {
 	width: 100%;
@@ -116,7 +107,6 @@ body {
 	z-index: 1;
 }
 
-/* Pupil position styles */
 #game-start-screen .upper-pupil,
 #level-select-screen .upper-pupil {
 	top: 0;
@@ -127,7 +117,6 @@ body {
 	bottom: 0;
 }
 
-/* Keyframes for eye movement */
 @keyframes movement {
 
 	0%,
@@ -147,7 +136,6 @@ body {
 	}
 }
 
-/* Keyframes for eye blinking */
 @keyframes blink {
 
 	0%,
@@ -171,7 +159,6 @@ body {
 	}
 }
 
-/* Game box styles */
 .game-box {
 	width: 100px;
 	height: 100px;
@@ -188,7 +175,6 @@ body {
 	width: 90%;
 }
 
-/* Triangle before the game box */
 .start-box:before {
 	content: "";
 	width: 0;
@@ -263,7 +249,6 @@ body {
 	}
 }
 
-/* =========== gameplay-screen - Screen 01 =========== */
 .debug-info {
 	opacity: 0;
 }
@@ -301,7 +286,6 @@ body {
 	height: 100vh;
 }
 
-/* Keyframes for text movement */
 @keyframes opacityText {
 	0% {
 		opacity: 1;
@@ -316,7 +300,6 @@ body {
 	}
 }
 
-/* Eye container style */
 #gameplay-screen .eye-container {
 	background-color: transparent;
 	display: flex;
@@ -326,7 +309,6 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-/* Eye styles */
 #gameplay-screen .eye {
 	width: 450px;
 	height: 450px;
@@ -402,7 +384,6 @@ body {
 }
 
 
-/* =========== tutorial =========== */
 #tutorial-screen,
 #victory-screen,
 #lose-screen {
@@ -463,7 +444,6 @@ body {
 	content: "";
 	position: absolute;
 	left: -60px;
-	/* distância à esquerda do botão */
 	top: 50%;
 	transform: translateY(-50%) scale(0.8);
 	width: 48px;
